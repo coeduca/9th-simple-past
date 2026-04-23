@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Unit 2 · People and Life Stories — Workshop</title>
+
+<!-- Fonts: distinctive display + readable body -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,600&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+
+<!-- jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<link rel="stylesheet" href="style.css" />
+</head>
+<body class="noselect">
+
+<!-- Decorative background -->
+<div class="bg-orbs" aria-hidden="true">
+  <span class="orb o1"></span>
+  <span class="orb o2"></span>
+  <span class="orb o3"></span>
+</div>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="brand">
+      <div class="logo">C<span>·</span>E</div>
+      <div class="brand-text">
+        <small>COEDUCA · English A1+</small>
+        <h1>People &amp; Life Stories</h1>
+      </div>
+    </div>
+    <div class="meta-pill">
+      <span class="dot"></span> Unit 2 · Week 8 · 9th Grade
+    </div>
+  </div>
+
+  <div class="hero wrap">
+    <div class="hero-left">
+      <p class="kicker">Interactive Workshop</p>
+      <h2 class="hero-title">
+        <span class="line">Didn't</span>
+        <span class="line italic">happen.</span>
+        <span class="line small">Ordinal numbers, months &amp; years.</span>
+      </h2>
+      <p class="lede">Practice the <b>Simple Past Negative</b> with <i>didn't</i>, master <b>ordinal numbers</b>, and write <b>full American-format dates</b>. Eight exercises + a bonus mini-game for extra points.</p>
+    </div>
+
+    <div class="hero-card">
+      <h3>Student Card</h3>
+      <label>Full Name
+        <input type="text" id="studentName" placeholder="e.g. María Pérez" autocomplete="off" />
+      </label>
+      <label>NIE / Student ID
+        <input type="text" id="studentId" placeholder="e.g. 00123456-7" autocomplete="off" />
+      </label>
+      <div class="teacher-row">
+        <div><small>Teacher</small><b>José Eliseo Martínez</b></div>
+        <div><small>Section</small><b>A</b></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ================= EXERCISE 1 : WORD SEARCH ================= -->
+  <section class="exercise" id="ex1" data-value="1">
+    <div class="ex-head">
+      <div class="num">01</div>
+      <div>
+        <h3>Word Search — Months of the Year</h3>
+        <p class="instr">Find the <b>12 months</b> hidden in the grid. Tap / click the first letter, then the last letter of the word.</p>
+      </div>
+      <span class="points" id="p1">—</span>
+    </div>
+
+    <div class="wordsearch-wrap">
+      <div id="wsGrid" class="wsGrid" aria-label="Word search grid"></div>
+      <ul id="wsList" class="wsList"></ul>
+    </div>
+  </section>
+
+  <!-- ================= EXERCISE 2 : MATCH WITH LINES (SVG) ================= -->
+  <section class="exercise" id="ex2" data-value="1">
+    <div class="ex-head">
+      <div class="num">02</div>
+      <div>
+        <h3>Match — Ordinal Numbers</h3>
+        <p class="instr">Draw a line from the number to its correct ordinal word. Tap a left item, then tap its match on the right.</p>
+      </div>
+      <span class="points" id="p2">—</span>
+    </div>
+    <div class="match-wrap">
+      <div class="match-col match-left" id="matchLeft">
+        <button class="match-item" data-key="1">1</button>
+        <button class="match-item" data-key="2">2</button>
+        <button class="match-item" data-key="3">3</button>
+        <button class="match-item" data-key="5">5</button>
+        <button class="match-item" data-key="9">9</button>
+        <button class="match-item" data-key="12">12</button>
+        <button class="match-item" data-key="21">21</button>
+        <button class="match-item" data-key="31">31</button>
+      </div>
+      <svg id="matchSvg" class="match-svg" aria-hidden="true"></svg>
+      <div class="match-col match-right" id="matchRight">
+        <button class="match-item" data-key="3">Third</button>
+        <button class="match-item" data-key="12">Twelfth</button>
+        <button class="match-item" data-key="1">First</button>
+        <button class="match-item" data-key="31">Thirty-first</button>
+        <button class="match-item" data-key="5">Fifth</button>
+        <button class="match-item" data-key="21">Twenty-first</button>
+        <button class="match-item" data-key="9">Ninth</button>
+        <button class="match-item" data-key="2">Second</button>
+      </div>
+    </div>
+    <button class="mini-btn" id="clearMatch">Clear lines</button>
+  </section>
+
+  <!-- ================= EXERCISE 3 : DRAG & DROP FILL IN THE BLANKS ================= -->
+  <section class="exercise" id="ex3" data-value="1">
+    <div class="ex-head">
+      <div class="num">03</div>
+      <div>
+        <h3>Drag &amp; Drop — Make It Negative</h3>
+        <p class="instr">Drag words from the bank into the blanks to complete each negative sentence. Use <b>didn't + base verb</b>.</p>
+      </div>
+      <span class="points" id="p3">—</span>
+    </div>
+    <div class="wordbank" id="bank3">
+      <!-- Filled by JS -->
+    </div>
+    <ol class="sentences" id="sents3"></ol>
+  </section>
+
+  <!-- ================= EXERCISE 4 : REORDER WORDS TO FORM A MONTH ================= -->
+  <section class="exercise" id="ex4" data-value="1">
+    <div class="ex-head">
+      <div class="num">04</div>
+      <div>
+        <h3>Unscramble — Months &amp; Ordinals</h3>
+        <p class="instr">Rearrange the scrambled letters to form the correct month or ordinal. Drag tiles left or right.</p>
+      </div>
+      <span class="points" id="p4">—</span>
+    </div>
+    <div id="unscrambleList" class="unscramble-list"></div>
+  </section>
+
+  <!-- ================= EXERCISE 5 : MULTIPLE CHOICE (images) ================= -->
+  <section class="exercise" id="ex5" data-value="1">
+    <div class="ex-head">
+      <div class="num">05</div>
+      <div>
+        <h3>Multiple Choice — What DIDN'T happen?</h3>
+        <p class="instr">Look at each picture and choose the sentence that is <b>correctly negative</b> (Simple Past Negative).</p>
+      </div>
+      <span class="points" id="p5">—</span>
+    </div>
+    <div class="mcq-grid" id="mcqGrid"></div>
+  </section>
+
+  <!-- ================= EXERCISE 6 : CLASSIFY (drag into columns) ================= -->
+  <section class="exercise" id="ex6" data-value="1">
+    <div class="ex-head">
+      <div class="num">06</div>
+      <div>
+        <h3>Classify — Regular vs Irregular</h3>
+        <p class="instr">Drag each <b>base verb</b> into the right column. Remember: after <i>didn't</i>, we always use the <b>base form</b>.</p>
+      </div>
+      <span class="points" id="p6">—</span>
+    </div>
+    <div class="classify-bank" id="verbsBank"></div>
+    <div class="classify-cols">
+      <div class="classify-col" data-cat="regular">
+        <h4>Regular</h4>
+        <div class="drop-area" id="colReg"></div>
+      </div>
+      <div class="classify-col" data-cat="irregular">
+        <h4>Irregular</h4>
+        <div class="drop-area" id="colIrr"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EXERCISE 7 : DROPDOWN INSIDE SENTENCES ================= -->
+  <section class="exercise" id="ex7" data-value="1">
+    <div class="ex-head">
+      <div class="num">07</div>
+      <div>
+        <h3>Dropdown — Pick the Correct Form</h3>
+        <p class="instr">Choose the correct option for each sentence. Watch out for <b>was/were</b> vs <b>didn't</b>!</p>
+      </div>
+      <span class="points" id="p7">—</span>
+    </div>
+    <ol class="dropdown-list" id="dropList"></ol>
+  </section>
+
+  <!-- ================= EXERCISE 8 : TRUE / FALSE HISTORICAL FACTS ================= -->
+  <section class="exercise" id="ex8" data-value="1">
+    <div class="ex-head">
+      <div class="num">08</div>
+      <div>
+        <h3>True or False — Historical Dates</h3>
+        <p class="instr">Read each statement. Decide if it is <b>TRUE</b> or <b>FALSE</b>.</p>
+      </div>
+      <span class="points" id="p8">—</span>
+    </div>
+    <div class="tf-list" id="tfList"></div>
+  </section>
+
+  <!-- ================= EXERCISE 9 : WRITE FULL DATE (fill-in) ================= -->
+  <section class="exercise" id="ex9" data-value="1">
+    <div class="ex-head">
+      <div class="num">09</div>
+      <div>
+        <h3>Write the Full Date — American Format</h3>
+        <p class="instr">Write each date in words using the American format: <b>Month + Day (ordinal) + Year</b>. Example: <i>September 15th, 1821</i>.</p>
+      </div>
+      <span class="points" id="p9">—</span>
+    </div>
+    <ol class="date-list" id="dateList"></ol>
+  </section>
+
+  <!-- ================= EXERCISE 10 : DESCRIBE TWO EMOJIS ================= -->
+  <section class="exercise" id="ex10" data-value="1">
+    <div class="ex-head">
+      <div class="num">10</div>
+      <div>
+        <h3>Emoji Sentences — Write a Negative Past Sentence</h3>
+        <p class="instr">For each pair of emojis, write a sentence in the <b>Simple Past Negative</b>. Include the verb in parentheses.</p>
+      </div>
+      <span class="points" id="p10">—</span>
+    </div>
+    <ol class="emoji-list" id="emojiList"></ol>
+  </section>
+
+  <!-- ================= RESULT / ACTIONS ================= -->
+  <section class="result-box">
+    <div class="score-display">
+      <div class="big-score">
+        <span id="finalScore">—</span><small>/10</small>
+      </div>
+      <div class="score-meta">
+        <p>Final grade (auto-calculated)</p>
+        <p id="extraInline" class="extra-inline"></p>
+      </div>
+    </div>
+    <div class="btns">
+      <button class="btn ghost" id="checkBtn">Check my answers</button>
+      <button class="btn primary" id="pdfBtn">Download PDF</button>
+      <button class="btn danger" id="resetBtn">Reset progress</button>
+    </div>
+  </section>
+
+  <!-- ================= BONUS : TIC-TAC-TOE ================= -->
+  <section class="exercise bonus" id="bonus">
+    <div class="ex-head">
+      <div class="num">★</div>
+      <div>
+        <h3>Bonus Game — Tic-Tac-Toe (XO)</h3>
+        <p class="instr">Beat the computer to earn <b>+1 point</b>. Tie = <b>+0.5</b>. Lose = no points, more luck next time!</p>
+      </div>
+      <span class="points mood" id="moodEmoji">🙂</span>
+    </div>
+
+    <div class="ttt-wrap">
+      <div class="ttt-board" id="tttBoard" role="grid" aria-label="Tic-tac-toe board"></div>
+      <div class="ttt-side">
+        <p class="ttt-status" id="tttStatus">Your turn (X)</p>
+        <p class="ttt-result" id="tttResult"></p>
+        <button class="mini-btn" id="tttReset">New game</button>
+        <p class="extra-note" id="extraNote"></p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p>© 2026 COEDUCA · English A1+ · Teacher José Eliseo Martínez</p>
+  </footer>
+</main>
+
+<!-- Auto-scroll edge indicator -->
+<div id="scrollTop" class="scroll-edge top"></div>
+<div id="scrollBot" class="scroll-edge bot"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
